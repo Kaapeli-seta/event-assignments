@@ -1,3 +1,5 @@
+'use strict';
+
 const restaurants = [
   {
     location: {type: 'Point', coordinates: [25.018456, 60.228982]},
@@ -771,3 +773,20 @@ const restaurants = [
 ];
 
 // your code here
+const kohde = document.querySelector('tbody');
+const modaali = document.querySelector('dialog');
+
+restaurants.sort((a, b) => a.name.localeCompare(b.name));
+
+for (const restaurant of restaurants) {
+  const nimi = document.createElement('td');
+  nimi.innerText = restaurant.name;
+
+  const osoite = document.createElement('td');
+  osoite.innerText = restaurant.address;
+
+  const rivi = document.createElement('tr');
+  rivi.append(nimi, osoite);
+
+  kohde.append(rivi);
+}
