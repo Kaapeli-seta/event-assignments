@@ -775,6 +775,12 @@ const restaurants = [
 // your code here
 const kohde = document.querySelector('tbody');
 const modaali = document.querySelector('dialog');
+const info = document.querySelector('#info');
+const closeModal = document.querySelector('#close-modal');
+
+closeModal.addEventListener('click', function () {
+  modaali.close();
+});
 
 restaurants.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -787,6 +793,28 @@ for (const restaurant of restaurants) {
 
   const rivi = document.createElement('tr');
   rivi.append(nimi, osoite);
+
+  rivi.addEventListener('click', function () {
+    const korostetut = document.querySelectorAll('.highlight');
+    for (const korostettu of korostetut) {
+      korostettu.classList.remove('highlight');
+    }
+    rivi.classList.add('highlight');
+    modaali.showModal();
+    const ravintolaHTML = `
+    <header>
+      <h3>${restaurant.name}</h3>
+      <p>${restaurant.company}</p>
+    </header>
+    <address>
+      ${restaurant.address} <br>
+      ${restaurant.postalCode} ${restaurant.city} <br>
+      ${restaurant.phone} <br>
+    </address>
+    `;
+    info.innerHTML = '';
+    info.insertAdjacentHTML('beforeend', ravintolaHTML);
+  });
 
   kohde.append(rivi);
 }
